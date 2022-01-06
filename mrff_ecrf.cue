@@ -7,12 +7,13 @@ import "strings"
 // import "math"
 
 
-// cue export mrff_ecrf.cue -e encoded -o text:mrff_ecrf.csv -f
-
+// [preferred] outputting the entire project as a package:
 // define the entire package "package ecrf" on each file
 // cue export -p ecrf -e encoded -o text:mrff_ecrf.csv -f
 
 
+// old (one-file) export:
+// cue export mrff_ecrf.cue -e encoded -o text:mrff_ecrf.csv -f
 
     
 
@@ -23,6 +24,11 @@ _forms: #Forms & {
   treatment_beta: treatment,
   treatment_iv_clinical_beta: treatment_iv_clinical,
   treatment_iv_labs_beta: treatment_iv_labs,
+  kinetics_labs_beta: kinetics_labs,
+  treatment_iv_monthly_beta: treatment_iv_monthly,
+  other_routes_clinical_beta: other_routes_clinical,
+  other_routes_lab_beta: other_routes_lab,
+  other_routes_monthly_beta: other_routes_monthly,
   adverse_events_beta: adverse_events,
   withdrawal_beta: withdrawal,
   followup_beta: followup,

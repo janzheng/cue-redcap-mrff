@@ -14,6 +14,7 @@ _clinDaysKeys: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,29]
 //_clinDaysKeys: [for d, D in _clinDays { strings.Replace(strings.ToLower(D),"-","_",-1) }]
 _clinChoices: strings.Join([for d, D in _clinDaysKeys { "\(D), \(_clinDays[d])"}], " | ")
 _trivcl_inclusion: strings.Join([for y, Y in _maxPhages*[""] {"([tre_ph_\(y)_rt(iv)] = '1' or [tre_ph_\(y)_rt(oral)] = '1')"}], " or ")
+_trivcl_noninclusion: strings.Join([for y, Y in _maxPhages*[""] {"([tre_ph_\(y)_rt(iv)] = '0' and [tre_ph_\(y)_rt(oral)] = '0')"}], " and ")
 
 // these are re-used D1-D14
 _clin_doses: {
@@ -63,6 +64,12 @@ _clin_fever_high_pre_next_mo: {
   validator: "number_1dp"
   req: "y"
 }
+_clin_fever_max: {
+  type: "text"
+  label: "Specify max temp (XX.X°C)"
+  validator: "number_1dp"
+  req: "y"
+}
 _clin_fever_high_time_of_max: {
   type: "text"
   label: "Specify time of max fever in hours after morning phage dose (X.X hours)"
@@ -83,7 +90,7 @@ _clin_tachy_max_hr: {
 }
 _clin_tachy_time_of_max: {
   type: "text"
-  label: "Specify time of max HR in hours after morning phage dose (X.X hours)"
+  label: "Specify time of max HR in hours after phage dose (X.X hours)"
   validator: "number_1dp"
   req: "y"
 }
@@ -95,7 +102,7 @@ _clin_pain: {
 }
 _clin_pain_hours_after: {
   type: "text"
-  label: "Specify time of pain occurrence in hours after morning phage dose (X.X hours)"
+  label: "Specify time of pain occurrence in hours after phage dose (X.X hours)"
   validator: "number_1dp"
   req: "y"
 }

@@ -13,9 +13,14 @@ treatment_iv_labs: [
   {trivlab_no_inclusion_msg: #Form & {
       _no_inclusion_msg
   }},
-  {"trivlab_descriptive": #Form & {
-      type: "descriptive"
-      label: "<div class=\"header\">Clinical IV Labs. <br><br>This page opens when IV and/or oral/enteral phage therapy are selected from the Treatment page. </div>"
+  {trivlab_descriptive: #Form & {
+    type: "descriptive"
+    label: "<div class=\"header\"><h2>Clinical IV Labs</h2> For treatments over TWO weeks, use the Monthly instrument. <br><br>This page opens when IV and/or oral/enteral phage therapy are selected from the Treatment page. </div>"
+  }},
+  {trivlab_noninclusion: #Form & {
+    type: "descriptive"
+    label: "<div class=\"header\">This patient does not meet oral/enteral phage therapy requirements</div>"
+    branch: "\(_trivcl_noninclusion)"
   }},
   {trivlab_day: #Form & {
     type: "radio"
@@ -139,7 +144,7 @@ treatment_iv_labs: [
     {trivlab_hb: #Form & {
       section: "Hb results"
       type: "text"
-      label: "[[trivlab_day]] Procalcitonin result (XXX g/L)"
+      label: "[[trivlab_day]] Hb result (XXX g/L)"
       validator: "integer"
       branch: "[trivlab_fbc_isnorm] = '0' and [trivlab_day] and [trivlab_day] >= 0" // skip day 11
     }},
@@ -155,7 +160,7 @@ treatment_iv_labs: [
     {trivlab_platelet: #Form & {
       section: "Platelet count"
       type: "text"
-      label: "[[trivlab_day]] Procalcitonin result (XXX x10^9/L)"
+      label: "[[trivlab_day]] Platelet result (XXX x10^9/L)"
       validator: "integer"
       branch: "[trivlab_fbc_isnorm] = '0' and [trivlab_day] and [trivlab_day] >= 0" // skip day 11
     }},
@@ -575,19 +580,19 @@ treatment_iv_labs: [
     req: "y"
   }},
 
-  // C50 result - D0, D15, D29 only
-  {trivlab_c50: #Form & {
-    section: "C50"
+  // CH50 result - D0, D15, D29 only
+  {trivlab_ch50: #Form & {
+    section: "CH50"
     type: "text"
-    label: "[[trivlab_day]] C50 (XX U/mL)"
+    label: "[[trivlab_day]] CH50 (XX U/mL)"
     validator: "integer"
     branch: "[trivlab_day] and ([trivlab_day] = 0 or [trivlab_day] = 15 or [trivlab_day] = 29)"
   }},
-  {trivlab_c50_na: #Form & {
+  {trivlab_ch50_na: #Form & {
     type: "checkbox"
-    label: "[[trivlab_day]] Is C50 not available?"
-    choices: "na, C50 results are NOT available for [[trivlab_day]]"
-    branch: "[trivlab_c50] = '' and [trivlab_day] and ([trivlab_day] = 0 or [trivlab_day] = 15 or [trivlab_day] = 29)"
+    label: "[[trivlab_day]] Is CH50 not available?"
+    choices: "na, CH50 results are NOT available for [[trivlab_day]]"
+    branch: "[trivlab_ch50] = '' and [trivlab_day] and ([trivlab_day] = 0 or [trivlab_day] = 15 or [trivlab_day] = 29)"
     req: "y"
   }},
 
@@ -734,6 +739,11 @@ treatment_iv_labs: [
     label: "[[trivlab_day]] Are clinical samples available for metagenomics?"
     branch: "[trivlab_day] and [trivlab_day] >= 0"
   }},
+    {trivlab_metag_type: #Form & {
+      type: "text"
+      label: "[[trivlab_day]] Specify type of sample"
+      branch: "[trivlab_metag_samples]='1' and [trivlab_day] and [trivlab_day] >= 0"
+    }},
     {trivlab_metag_has: #Form & {
       type: "radio"
       label: "[[trivlab_day]] Have metagenomics been performed?"

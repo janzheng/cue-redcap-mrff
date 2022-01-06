@@ -1,0 +1,12 @@
+{
+  "name": "ecrf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:janzheng/cue-redcap-mrff.git",
+  "author": "janzheng <janeazy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prod": "cue export -p ecrf -e encoded -o text:mrff_ecrf.csv -f",
+    "commit": "git add . -A ; git commit ; git push origin main "
+  }
+}
